@@ -102,6 +102,7 @@ def main():
     if configfile is None or not os.access(configfile, os.F_OK):
       raise Exception("Unable to find config.json in a VIRTUAL_ENV; you must "
                       "specify a config file using the --configfile option")
+  configfile = os.path.abspath(configfile)
 
   # load the config file
   f = open(configfile, 'r')
@@ -109,18 +110,6 @@ def main():
   f.close()
   config = json.loads(configcontent)
 
-  extensionDir = config.get("extensiondir")
-  if not extensionDir or extensionDir == '__EXTENSIONDIR__':
-    extensionDir = os.path.join(os.getcwd(), "..", "..", "services", "sync", "tps")
-  else:
-    if sys.platform == 'win32':
-      # replace msys-style paths with proper Windows paths
-      import re
-      m = re.match('^\/\w\/', extensionDir)
-      if m:
-        extensionDir = "%s:/%s" % (m.group(0)[1:2], extensionDir[3:])
-        extensionDir = extensionDir.replace("/", "\\")
-        
   if options.binary is None:
     while True:
       try:

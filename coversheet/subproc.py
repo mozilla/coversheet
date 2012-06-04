@@ -133,12 +133,15 @@ class TPSSubproc():
     def setup_tps(self):
         # Setup the downloaded TPS
         self.tpswd = os.path.join(self.tests, "tps")
-        tpsenv = os.path.join(self.tpswd, "tpsenv")
-        print "Installing tps in %s" % tpsenv
+        self.tpsenv = os.path.join(self.testinstalldir, "tpsenv")
+        if os.access(self.tpsenv, os.F_OK):
+            shutil.rmtree(self.tpsenv)
+        print "Installing tps in %s" % self.tpsenv
         self.run_process(["sh",
                           os.path.join(self.tpswd, "INSTALL.sh"),
-                          tpsenv],
-                          self.tpswd)
+                          self.tpsenv],
+                          self.tpswd,
+                          ignoreFailures=True)
         print "TPS setup complete"
 
     def update_config(self):
@@ -151,12 +154,18 @@ class TPSSubproc():
         updateFile = open(self.config, 'w')
         updateFile.write(json.dumps(configjson))
         updateFile.close()
+        print 'wrote config file to', self.config
+
+        # Update relative testfile paths to point to our downloaded tests.
+        if self.testfile and not os.path.isabs(self.testfile):
+            self.testfile = os.path.join(self.tpswd, "tests", self.testfile)
+        print "testfile: ", self.testfile
 
     def call_testrunners(self):
         # getting our python location
         bin_dir = 'Scripts' if sys.platform.startswith('win') else 'bin'
         python_exe = 'python.exe' if sys.platform.startswith('win') else 'python'
-        python_path = os.path.join(self.tpswd, "tpsenv", bin_dir, python_exe)
+        python_path = os.path.join(self.tpsenv, bin_dir, python_exe)
 
         tps_cli = os.path.join(self.tpswd, "tps", "cli.py")
         # standard call
@@ -206,11 +215,13 @@ class TPSSubproc():
                               "--ignore_unused_engines" if self.ignore_unused_engines else ''],
                               self.tpswd)
 
-    def run_process(self, params, cwd=None):
+    def run_process(self, params, cwd=None, ignoreFailures=False):
         process = subprocess.Popen(params, stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE, cwd=cwd)
         stdout, stderr = process.communicate() #this blocks until the subprocess is finished
         print stdout, stderr
         retcode = process.returncode
-        assert(retcode == 0)
-        return retcode   
+        if not ignoreFailures:
+            assert(retcode == 0)
+        return retcode
+
