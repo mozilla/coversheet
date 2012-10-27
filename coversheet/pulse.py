@@ -42,18 +42,20 @@ import socket
 
 from pulsebuildmonitor import PulseBuildMonitor
 from subproc import TPSSubproc
+from results import Covresults
 
 class TPSPulseMonitor(PulseBuildMonitor):
 
   def __init__(self, platform='linux', config=None,
                autolog=False, emailresults=False, testfile=None,
-               logfile=None, mobile=False, ignore_unused_engines=False, 
-               **kwargs):
+               logfile=None, resultfile=None, mobile=False,
+               ignore_unused_engines=False, **kwargs):
     self.buildtype = ['opt']
     self.autolog = autolog
     self.emailresults = emailresults
     self.testfile = testfile
     self.logfile = logfile
+    self.resultfile = resultfile
     self.mobile = mobile
     self.ignore_unused_engines = ignore_unused_engines
     self.config = config
@@ -70,6 +72,9 @@ class TPSPulseMonitor(PulseBuildMonitor):
     self.logger.setLevel(logging.DEBUG)
     handler = logging.FileHandler('tps_pulse.log')
     self.logger.addHandler(handler)
+
+    self.results = Covresults(configjson, self.autolog, self.emailresults, 
+                              self.resultfile)
 
     PulseBuildMonitor.__init__(self,
                                trees=self.tree,
@@ -101,3 +106,4 @@ class TPSPulseMonitor(PulseBuildMonitor):
     mysub.setup_tps()
     mysub.update_config()
     mysub.call_testrunners()
+    self.results.handleResults()
