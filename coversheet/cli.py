@@ -45,9 +45,12 @@ import time
 import traceback
 
 from pulse import TPSPulseMonitor
-#from testrunner import TPSTestRunner
 
 def main():
+  """ 1. Create virtualenv via virtualenv cov
+      2. Run python setup.py install
+      3. Call coversheet
+  """
   parser = optparse.OptionParser()
   parser.add_option("--email-results",
                     action = "store_true", dest = "emailresults",
@@ -71,6 +74,10 @@ def main():
                     action = "store", type = "string", dest = "logfile",
                     default = 'tps.log',
                     help = "path to the log file [default: %default]")
+  parser.add_option("--resultfile",
+                    action = "store", type = "string", dest = "resultfile",
+                    default = 'tps_result.json',
+                    help = "path to the result file [default: %default]")
   parser.add_option("--binary",
                     action = "store", type = "string", dest = "binary",
                     default = None,
@@ -120,6 +127,7 @@ def main():
                                   config=configfile,
                                   testfile=options.testfile,
                                   logfile=options.logfile,
+                                  resultfile=options.resultfile,
                                   mobile=options.mobile,
                                   ignore_unused_engines=options.ignore_unused_engines)
         print "waiting for pulse build notifications"

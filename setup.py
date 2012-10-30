@@ -38,10 +38,10 @@
 import sys
 from setuptools import setup, find_packages
 
-version = '0.1'
+version = '0.2'
 
 deps = ['pulsebuildmonitor >= 0.62', 'MozillaPulse == 0.61',
-        'mozregression == 0.3']
+        'mozregression == 0.3', 'mozautolog >= 0.2.4']
 
 # we only support python 2.6+ right now
 assert sys.version_info[0] == 2
