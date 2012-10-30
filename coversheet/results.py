@@ -73,7 +73,7 @@ class Covresults(object):
 
     if self.autolog:
       self.postToAutolog()
-    
+
     if self.emailresults:
       try:
         self.sendEmail(body, sendTo)
@@ -82,9 +82,8 @@ class Covresults(object):
 
   def sendEmail(self, body=None, sendTo=None):
     """Send the result email"""
-    if self.config.get('email') is not None \
-       and self.config['email'].get('username') != "" \
-       and self.config['email'].get('password' != ""):
+    if self.config.get('email') and self.config['email'].get('username')  \
+       and self.config['email'].get('password'):
       from sendemail import SendEmail
       from emailtemplate import GenerateEmailBody
 

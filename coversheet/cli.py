@@ -54,8 +54,7 @@ def main():
   parser = optparse.OptionParser()
   parser.add_option("--email-results",
                     action = "store_true", dest = "emailresults",
-                    default = True,
-                    #default = False,
+                    default = False,
                     help = "email the test results to the recipients defined "
                            "in the config file")
   parser.add_option("--mobile",
