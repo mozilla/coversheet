@@ -170,9 +170,7 @@ class TPSSubproc():
         tps_cli = os.path.join(self.tpswd, "tps", "cli.py")
         # standard call
         self.run_process([python_path, tps_cli,
-                          "--email-results" if self.emailresults else '',
                           "--binary", self.binary,
-                          "--autolog" if self.autolog else '',
                           "--testfile", self.testfile,
                           "--logfile", self.logfile,
                           "--configfile", self.config,
@@ -182,9 +180,7 @@ class TPSSubproc():
 
         # mobile call
         self.run_process([python_path, tps_cli,
-                          "--email-results" if self.emailresults else '',
                           "--binary", self.binary,
-                          "--autolog" if self.autolog else '',
                           "--testfile", self.testfile,
                           "--logfile", self.logfile,
                           "--configfile", self.config,
@@ -206,9 +202,7 @@ class TPSSubproc():
             stageconfig = configjson.copy()
             stageconfig['account'] = stageaccount.copy()
             self.run_process([python_path, tps_cli,
-                              "--email-results" if self.emailresults else '',
                               "--binary", self.binary,
-                              "--autolog" if self.autolog else '',
                               "--testfile", self.testfile,
                               "--logfile", self.logfile,
                               "--configfile", stageconfig,
