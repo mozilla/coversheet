@@ -64,6 +64,7 @@ class Covresults(object):
       self.numfailed = self.postdata['numfailed']
     if self.postdata.has_key('firefoxrunnerurl'):
       self.firefoxrunnerurl = self.postdata['firefoxrunnerurl']
+    self.synctype = self.postdata.get('synctype', '')
 
     if self.postdata.has_key('body'):
       body = self.postdata['body']
@@ -152,8 +153,10 @@ class Covresults(object):
             )
     for test in self.results:
       if test['state'] != "TEST-PASS":
-        errorlog = self.errorlogs.get(test['name'])
-        errorlog_filename = errorlog.filename if errorlog else None
+        # XXX FIX ME
+        #errorlog = self.errorlogs.get(test['name'])
+        #errorlog_filename = errorlog.filename if errorlog else None
+        errorlog_filename = None
         group.add_test_failure(
               test = test['name'],
               status = test['state'],
