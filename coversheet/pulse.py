@@ -100,6 +100,7 @@ class TPSPulseMonitor(PulseBuildMonitor):
                        logfile=self.logfile,
                        config=self.config,
                        mobile=self.mobile,
+                       resultfile=self.resultfile,
                        ignore_unused_engines=self.ignore_unused_engines)
 
     mysub.get_buildAndTests()

@@ -117,6 +117,8 @@ def main():
   f.close()
   config = json.loads(configcontent)
 
+  options.resultfile = os.path.abspath(options.resultfile)
+
   if options.binary is None:
     while True:
       try:

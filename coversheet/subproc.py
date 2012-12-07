@@ -50,7 +50,8 @@ from mozregression.utils import download_url, get_platform
 class TPSSubproc():
     def __init__(self, builddata=None, emailresults=False,
                  testfile=None, logfile=None, config=None, autolog=False,
-                 mobile=False, ignore_unused_engines=False):
+                 mobile=False, ignore_unused_engines=False,
+                 resultfile=None):
         assert(builddata)
         assert(config)
 
@@ -62,6 +63,7 @@ class TPSSubproc():
         self.config = config
         self.autolog = autolog
         self.mobile = mobile
+        self.resultfile = resultfile
         self.ignore_unused_engines = ignore_unused_engines
 
     def download_build(self, installdir='downloadedbuild',
@@ -172,6 +174,7 @@ class TPSSubproc():
         self.run_process([python_path, tps_cli,
                           "--binary", self.binary,
                           "--testfile", self.testfile,
+                          "--resultfile", self.resultfile,
                           "--logfile", self.logfile,
                           "--configfile", self.config,
                           "--mobile" if self.mobile else '',
@@ -182,6 +185,7 @@ class TPSSubproc():
         self.run_process([python_path, tps_cli,
                           "--binary", self.binary,
                           "--testfile", self.testfile,
+                          "--resultfile", self.resultfile,
                           "--logfile", self.logfile,
                           "--configfile", self.config,
                           "--mobile",
@@ -204,6 +208,7 @@ class TPSSubproc():
             self.run_process([python_path, tps_cli,
                               "--binary", self.binary,
                               "--testfile", self.testfile,
+                              "--resultfile", self.resultfile,
                               "--logfile", self.logfile,
                               "--configfile", stageconfig,
                               "--ignore_unused_engines" if self.ignore_unused_engines else ''],
