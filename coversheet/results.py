@@ -36,7 +36,9 @@
 #
 # ***** END LICENSE BLOCK *****
 import json
+import socket
 import traceback
+
 
 class Covresults(object):
   """Class for handling coversheet test-run results."""
