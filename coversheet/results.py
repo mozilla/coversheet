@@ -64,8 +64,7 @@ class Covresults(object):
       self.numpassed = self.postdata['numpassed']
     if self.postdata.has_key('numfailed'):
       self.numfailed = self.postdata['numfailed']
-    if self.postdata.has_key('firefoxrunnerurl'):
-      self.firefoxrunnerurl = self.postdata['firefoxrunnerurl']
+    self.firefoxrunnerurl = self.postdata.get('firefoxrunnerurl', 'unknown')
     self.synctype = self.postdata.get('synctype', '')
 
     if self.postdata.has_key('body'):
