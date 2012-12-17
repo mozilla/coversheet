@@ -153,7 +153,7 @@ class Covresults(object):
               failed=self.numfailed,
               todo=0,
             )
-    for test in self.results:
+    for test in self.postdata['tests']:
       if test['state'] != "TEST-PASS":
         # XXX FIX ME
         #errorlog = self.errorlogs.get(test['name'])
@@ -175,7 +175,7 @@ class Covresults(object):
     # Iterate through all testfailure objects, and update the postdata
     # dict with the testfailure logurl's, if any.
     for tf in group.testsuites[-1].testfailures:
-      result = [x for x in self.results if x.get('name') == tf.test]
+      result = [x for x in self.postdata['tests'] if x.get('name') == tf.test]
       if not result:
         continue
       result[0]['logurl'] = tf.logurl
