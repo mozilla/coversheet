@@ -59,28 +59,32 @@ class Covresults(object):
   def handleResults(self):
     """Handles sending of results to the appropriate destinations."""
     self.readResults()
-    self.postdata = self.test['results']
-    if self.postdata.has_key('numpassed'):
-      self.numpassed = self.postdata['numpassed']
-    if self.postdata.has_key('numfailed'):
-      self.numfailed = self.postdata['numfailed']
-    self.firefoxrunnerurl = self.postdata.get('firefoxrunnerurl', 'unknown')
-    self.synctype = self.postdata.get('synctype', '')
 
-    if self.postdata.has_key('body'):
-      body = self.postdata['body']
-    else:
-      body = None
-    sendTo = self.postdata['sendTo']
+    for result in self.test['results']:
+      print result
+      self.postdata = result
 
-    if self.autolog:
-      self.postToAutolog()
+      if result.has_key('numpassed'):
+        self.numpassed = result['numpassed']
+      if result.has_key('numfailed'):
+        self.numfailed = result['numfailed']
+      self.firefoxrunnerurl = result.get('firefoxrunnerurl', 'unknown')
+      self.synctype = result.get('synctype', '')
 
-    if self.emailresults:
-      try:
-        self.sendEmail(body, sendTo)
-      except:
-        traceback.print_exc()
+      if result.has_key('body'):
+        body = result['body']
+      else:
+        body = None
+      sendTo = result['sendTo']
+
+      if self.autolog:
+        self.postToAutolog()
+
+      if self.emailresults:
+        try:
+          self.sendEmail(body, sendTo)
+        except:
+          traceback.print_exc()
 
   def sendEmail(self, body=None, sendTo=None):
     """Send the result email"""
@@ -112,20 +116,12 @@ class Covresults(object):
       subj +=", changeset " + changeset + "; " + str(self.numfailed) + \
              " failed, " + str(self.numpassed) + " passed"
 
-      To = [sendTo] if sendTo else None
-      if not To:
-        if self.numfailed > 0 or self.numpassed == 0:
-          To = self.config['email'].get('notificationlist')
-        else:
-          To = self.config['email'].get('passednotificationlist')
-
-      if To:
-        SendEmail(From=self.config['email']['username'],
-                  To=To,
-                  Subject=subj,
-                  HtmlData=body,
-                  Username=self.config['email']['username'],
-                  Password=self.config['email']['password'])
+      SendEmail(From=self.config['email']['username'],
+                To=sendTo,
+                Subject=subj,
+                HtmlData=body,
+                Username=self.config['email']['username'],
+                Password=self.config['email']['password'])
 
   def postToAutolog(self):
     from mozautolog import RESTfulAutologTestGroup as AutologTestGroup
