@@ -119,8 +119,6 @@ def main():
 
   options.resultfile = os.path.abspath(options.resultfile)
   print 'using resultfile:', options.resultfile
-  if os.access(options.resultfile, os.F_OK):
-    os.remove(options.resultfile)
 
   if options.binary is None:
     while True:

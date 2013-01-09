@@ -38,73 +38,78 @@
 
 import json
 import logging
+import os
 import socket
 
 from pulsebuildmonitor import PulseBuildMonitor
 from subproc import TPSSubproc
 from results import Covresults
 
+
 class TPSPulseMonitor(PulseBuildMonitor):
 
-  def __init__(self, platform='linux', config=None,
-               autolog=False, emailresults=False, testfile=None,
-               logfile=None, resultfile=None, mobile=False,
-               ignore_unused_engines=False, **kwargs):
-    self.buildtype = ['opt']
-    self.autolog = autolog
-    self.emailresults = emailresults
-    self.testfile = testfile
-    self.logfile = logfile
-    self.resultfile = resultfile
-    self.mobile = mobile
-    self.ignore_unused_engines = ignore_unused_engines
-    self.config = config
-    f = open(config, 'r')
-    configcontent = f.read()
-    f.close()
-    configjson = json.loads(configcontent)
-    self.tree = configjson.get('tree', ['services-central'])
-    self.platform = [configjson.get('platform', 'linux')]
-    self.label=('crossweave@mozilla.com|tps_build_monitor_' +
-                socket.gethostname())
+    def __init__(self, platform='linux', config=None,
+                 autolog=False, emailresults=False, testfile=None,
+                 logfile=None, resultfile=None, mobile=False,
+                 ignore_unused_engines=False, **kwargs):
+        self.buildtype = ['opt']
+        self.autolog = autolog
+        self.emailresults = emailresults
+        self.testfile = testfile
+        self.logfile = logfile
+        self.resultfile = resultfile
+        self.mobile = mobile
+        self.ignore_unused_engines = ignore_unused_engines
+        self.config = config
+        f = open(config, 'r')
+        configcontent = f.read()
+        f.close()
+        configjson = json.loads(configcontent)
+        self.tree = configjson.get('tree', ['services-central'])
+        self.platform = [configjson.get('platform', 'linux')]
+        self.label=('crossweave@mozilla.com|tps_build_monitor_' +
+                    socket.gethostname())
 
-    self.logger = logging.getLogger('tps_pulse')
-    self.logger.setLevel(logging.DEBUG)
-    handler = logging.FileHandler('tps_pulse.log')
-    self.logger.addHandler(handler)
+        self.logger = logging.getLogger('tps_pulse')
+        self.logger.setLevel(logging.DEBUG)
+        handler = logging.FileHandler('tps_pulse.log')
+        self.logger.addHandler(handler)
 
-    self.results = Covresults(configjson, self.autolog, self.emailresults, 
-                              self.resultfile)
+        self.results = Covresults(configjson, self.autolog, self.emailresults,
+                                  self.resultfile)
 
-    PulseBuildMonitor.__init__(self,
-                               trees=self.tree,
-                               label=self.label,
-                               logger=self.logger,
-                               platforms=self.platform,
-                               buildtypes=self.buildtype,
-                               builds=True,
-                               **kwargs)
+        PulseBuildMonitor.__init__(self,
+                                   trees=self.tree,
+                                   label=self.label,
+                                   logger=self.logger,
+                                   platforms=self.platform,
+                                   buildtypes=self.buildtype,
+                                   builds=True,
+                                   **kwargs)
 
-  def onPulseMessage(self, data):
-    key = data['_meta']['routing_key']
+    def onPulseMessage(self, data):
+        key = data['_meta']['routing_key']
 
-  def onBuildComplete(self, builddata):
-    print "================================================================="
-    print json.dumps(builddata)
-    print "================================================================="
-    
-    mysub = TPSSubproc(builddata=builddata,
-                       emailresults=self.emailresults,
-                       autolog=self.autolog,
-                       testfile=self.testfile,
-                       logfile=self.logfile,
-                       config=self.config,
-                       mobile=self.mobile,
-                       resultfile=self.resultfile,
-                       ignore_unused_engines=self.ignore_unused_engines)
+    def onBuildComplete(self, builddata):
+        print "================================================================="
+        print json.dumps(builddata)
+        print "================================================================="
 
-    mysub.get_buildAndTests()
-    mysub.setup_tps()
-    mysub.update_config()
-    mysub.call_testrunners()
-    self.results.handleResults()
+        if os.access(self.resultfile, os.F_OK):
+            os.remove(self.resultfile)
+
+        mysub = TPSSubproc(builddata=builddata,
+                           emailresults=self.emailresults,
+                           autolog=self.autolog,
+                           testfile=self.testfile,
+                           logfile=self.logfile,
+                           config=self.config,
+                           mobile=self.mobile,
+                           resultfile=self.resultfile,
+                           ignore_unused_engines=self.ignore_unused_engines)
+
+        mysub.get_buildAndTests()
+        mysub.setup_tps()
+        mysub.update_config()
+        mysub.call_testrunners()
+        self.results.handleResults()
