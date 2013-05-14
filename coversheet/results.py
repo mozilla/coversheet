@@ -126,51 +126,53 @@ class Covresults(object):
   def postToAutolog(self):
     from mozautolog import RESTfulAutologTestGroup as AutologTestGroup
 
-    group = AutologTestGroup(
-              harness='crossweave',
-              testgroup='crossweave-%s' % self.synctype,
-              server=self.config.get('es'),
-              restserver=self.config.get('restserver'),
-              machine=socket.gethostname(),
-              platform=self.config.get('platform', None),
-              os=self.config.get('os', None),
-            )
-    tree = self.postdata['productversion']['repository']
-    group.set_primary_product(
-              tree=tree[tree.rfind("/")+1:],
-              version=self.postdata['productversion']['version'],
-              buildid=self.postdata['productversion']['buildid'],
-              buildtype='opt',
-              revision=self.postdata['productversion']['changeset'],
-            )
-    group.add_test_suite(
-              passed=self.numpassed,
-              failed=self.numfailed,
-              todo=0,
-            )
-    for test in self.postdata['tests']:
-      if test['state'] != "TEST-PASS":
-        # XXX FIX ME
-        #errorlog = self.errorlogs.get(test['name'])
-        #errorlog_filename = errorlog.filename if errorlog else None
-        errorlog_filename = None
-        group.add_test_failure(
-              test = test['name'],
-              status = test['state'],
-              text = test['message'],
-              logfile = errorlog_filename
-            )
-    try:
-        group.submit()
-    except:
-        self.sendEmail('<pre>%s</pre>' % traceback.format_exc(),
-                       sendTo='crossweave@mozilla.com')
-        return
+    for server in self.config.get('es'):
 
-    # Iterate through all testfailure objects, and update the postdata
-    # dict with the testfailure logurl's, if any.
-    for tf in group.testsuites[-1].testfailures:
-      result = [x for x in self.postdata['tests'] if x.get('name') == tf.test]
-      if not result:
-        continue
-      result[0]['logurl'] = tf.logurl
+      group = AutologTestGroup(
+                harness='crossweave',
+                testgroup='crossweave-%s' % self.synctype,
+                server=server,
+                restserver=self.config.get('restserver'),
+                machine=socket.gethostname(),
+                platform=self.config.get('platform', None),
+                os=self.config.get('os', None),
+              )
+      tree = self.postdata['productversion']['repository']
+      group.set_primary_product(
+                tree=tree[tree.rfind("/")+1:],
+                version=self.postdata['productversion']['version'],
+                buildid=self.postdata['productversion']['buildid'],
+                buildtype='opt',
+                revision=self.postdata['productversion']['changeset'],
+              )
+      group.add_test_suite(
+                passed=self.numpassed,
+                failed=self.numfailed,
+                todo=0,
+              )
+      for test in self.postdata['tests']:
+        if test['state'] != "TEST-PASS":
+          # XXX FIX ME
+          #errorlog = self.errorlogs.get(test['name'])
+          #errorlog_filename = errorlog.filename if errorlog else None
+          errorlog_filename = None
+          group.add_test_failure(
+                test = test['name'],
+                status = test['state'],
+                text = test['message'],
+                logfile = errorlog_filename
+              )
+      try:
+          group.submit()
+      except:
+          self.sendEmail('<pre>%s</pre>' % traceback.format_exc(),
+                         sendTo='crossweave@mozilla.com')
+          return
+
+      # Iterate through all testfailure objects, and update the postdata
+      # dict with the testfailure logurl's, if any.
+      for tf in group.testsuites[-1].testfailures:
+        result = [x for x in self.postdata['tests'] if x.get('name') == tf.test]
+        if not result:
+          continue
+        result[0]['logurl'] = tf.logurl
