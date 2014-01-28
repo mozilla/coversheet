@@ -87,10 +87,10 @@ class TPSPulseMonitor(PulseBuildMonitor):
                                    builds=True,
                                    **kwargs)
 
-    def onPulseMessage(self, data):
+    def on_pulse_message(self, data):
         key = data['_meta']['routing_key']
 
-    def onBuildComplete(self, builddata):
+    def on_build_complete(self, builddata):
         print "================================================================="
         print json.dumps(builddata)
         print "================================================================="
