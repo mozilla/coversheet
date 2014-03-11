@@ -139,7 +139,7 @@ def main():
           # For testing purposes, inject a pulse message directly into
           # the monitor.
           builddata = json.loads(open(options.pulsefile, 'r').read())
-          monitor.onBuildComplete(builddata)
+          monitor.on_build_complete(builddata)
 
         monitor.listen()
       except KeyboardInterrupt:

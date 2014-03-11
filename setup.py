@@ -12,7 +12,7 @@
 # License.
 #
 # The Original Code is TPS.
-#    
+#
 # The Initial Developer of the Original Code is
 # Mozilla foundation
 # Portions created by the Initial Developer are Copyright (C) 2011
@@ -40,8 +40,9 @@ from setuptools import setup, find_packages
 
 version = '0.2'
 
-deps = ['pulsebuildmonitor >= 0.62', 'MozillaPulse == 0.61',
-        'mozregression == 0.3', 'mozautolog >= 0.2.4']
+deps = ['mozregression == 0.3',
+        'mozautolog >= 0.2.4',
+        'pulsebuildmonitor >= 0.80',]
 
 # we only support python 2.6+ right now
 assert sys.version_info[0] == 2
