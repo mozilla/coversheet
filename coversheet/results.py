@@ -100,7 +100,7 @@ class Covresults(object):
         body = GenerateEmailBody(self.postdata,
                                  self.numpassed,
                                  self.numfailed,
-                                 self.config['account']['serverURL'],
+                                 self.config['serverURL'],
                                  buildUrl)
 
       subj = "TPS Report: "
