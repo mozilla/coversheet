@@ -1,0 +1,28 @@
+{
+  "locale": "en-US",
+  "testsurl": "http://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-central-macosx64/1394532121/firefox-30.0a1.en-US.mac.tests.zip",
+  "previous_buildid": "20140310030201",
+  "job_number": 54,
+  "build_number": null,
+  "builddate": 1394532121,
+  "buildername": "OS X 10.7 mozilla-central nightly",
+  "platform": "macosx64",
+  "version": null,
+  "revision": "41d962d23e817c17a13d8cad45d80d96910c8b6a",
+  "status": 0,
+  "buildtype": "opt",
+  "product": "firefox",
+  "slave": "bld-lion-r5-078",
+  "tags": [
+    "nightly"
+  ],
+  "buildid": "20140311030201",
+  "timestamp": "2014-03-11T11:18:41Z",
+  "key": "build.mozilla-central-macosx64-nightly.54.log_uploaded",
+  "locales": null,
+  "logurl": "http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/2014/03/2014-03-11-03-02-01-mozilla-central/mozilla-central-macosx64-nightly-bm84-build1-build54.txt.gz",
+  "repack": null,
+  "tree": "mozilla-central",
+  "buildurl": "http://ftp.mozilla.org/pub/mozilla.org/firefox/tinderbox-builds/mozilla-central-macosx64/1394532121/firefox-30.0a1.en-US.mac.dmg",
+  "release": null
+}
