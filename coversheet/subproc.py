@@ -43,9 +43,10 @@ import zipfile
 import re
 import subprocess
 import json
+import requests
 
-from mozregression.mozInstall import MozInstaller
-from mozregression.utils import download_url, get_platform
+import mozinfo
+import mozinstall
 
 class TPSSubproc():
     def __init__(self, builddata=None, emailresults=False,
@@ -66,8 +67,32 @@ class TPSSubproc():
         self.resultfile = resultfile
         self.ignore_unused_engines = ignore_unused_engines
 
-    def download_build(self, installdir='downloadedbuild',
-                       appname='firefox', macAppName='Minefield.app'):
+    def update_download_progress(self, percent):
+        sys.stdout.write("===== Downloaded %d%% =====\r"%percent)
+        sys.stdout.flush()
+        if percent >= 100:
+            sys.stdout.write("\n")
+
+    def download_url(self, url, outputPath):
+        print "Downloading %s...\r" % url
+        with open(outputPath, 'wb') as handle:
+            request = requests.get(url, stream=True)
+            if request.status_code != 200:
+                print "Error downloading file status_code=%s" % request.status_code
+
+            bytes_so_far = 0.0
+            block_size = 16 * 1024
+            total_size = int(request.headers['content-length'])
+        
+            for block in request.iter_content(block_size):
+                if not block:
+                    continue
+                bytes_so_far += block_size
+                percent = (bytes_so_far / total_size) * 100
+                self.update_download_progress(percent)
+                handle.write(block)
+
+    def prepare_build(self, installdir='downloadedbuild', appname='firefox'):
         self.installdir = os.path.abspath(installdir)
         buildName = os.path.basename(self.url)
         pathToBuild = os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -78,29 +103,17 @@ class TPSSubproc():
           os.remove(pathToBuild)
 
         # download the build
-        print "downloading build"
-        download_url(self.url, pathToBuild)
+        self.download_url(self.url, pathToBuild)
 
         # install the build
         print "installing %s" % pathToBuild
         shutil.rmtree(self.installdir, True)
-        MozInstaller(src=pathToBuild, dest=self.installdir, dest_app=macAppName)
+        installed_at = mozinstall.install(pathToBuild, self.installdir)
 
         # remove the downloaded archive
         os.remove(pathToBuild)
 
-        # calculate path to binary
-        platform = get_platform()
-        if platform['name'] == 'Mac':
-          binary = '%s/%s/Contents/MacOS/%s-bin' % (installdir,
-                                                    macAppName,
-                                                    appname)
-        else:
-          binary = '%s/%s/%s%s' % (installdir,
-                                   appname,
-                                   appname,
-                                   '.exe' if platform['name'] == 'Windows' else '')
-
+        binary = mozinstall.get_binary(installed_at, appname)
         return os.path.abspath(binary)
 
     def download_tests(self, installdir='downloadedtests'):
@@ -115,7 +128,7 @@ class TPSSubproc():
 
         # download the tests
         print "downloading tests from %s" % self.testurl
-        download_url(self.testurl, pathToTests)
+        self.download_url(self.testurl, pathToTests)
 
         print "extracting test files to %s" % pathToTests 
         tempZipFile = zipfile.ZipFile(pathToTests)
@@ -127,7 +140,7 @@ class TPSSubproc():
 
     def get_buildAndTests(self):
         if self.url is not None and ('http://' in self.url or 'ftp://' in self.url):
-            self.binary = self.download_build()
+            self.binary = self.prepare_build()
             self.tests = self.download_tests()
         else:
             self.binary = self.binary

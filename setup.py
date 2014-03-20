@@ -40,7 +40,9 @@ from setuptools import setup, find_packages
 
 version = '0.2'
 
-deps = ['mozregression == 0.3',
+deps = ['requests >= 2.2.1',
+        'mozinstall >= 0.10',
+        'mozinfo >= 0.7',
         'mozautolog >= 0.2.4',
         'pulsebuildmonitor >= 0.80',]
 
