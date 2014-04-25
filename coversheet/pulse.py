@@ -95,6 +95,11 @@ class TPSPulseMonitor(PulseBuildMonitor):
         print json.dumps(builddata)
         print "================================================================="
 
+        # Don't run tests if some conditions aren't met
+        if not builddata.get('testsurl') or builddata.get('locale') != 'en-US' \
+            or builddata.get('status') != 0:
+            return
+
         if os.access(self.resultfile, os.F_OK):
             os.remove(self.resultfile)
 
