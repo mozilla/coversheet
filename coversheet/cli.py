@@ -67,7 +67,7 @@ def main():
                     help = "post results to Autolog")
   parser.add_option("--testfile",
                     action = "store", type = "string", dest = "testfile",
-                    default = '../../services/sync/tests/tps/test_sync.js',
+                    default = 'all_tests.json',
                     help = "path to the test file to run "
                            "[default: %default]")
   parser.add_option("--logfile",

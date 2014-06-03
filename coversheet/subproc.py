@@ -152,11 +152,13 @@ class TPSSubproc():
         if os.access(self.tpsenv, os.F_OK):
             shutil.rmtree(self.tpsenv)
         print "Installing tps in %s" % self.tpsenv
-        self.run_process(["sh",
-                          os.path.join(self.tpswd, "INSTALL.sh"),
-                          self.tpsenv],
-                          self.tpswd,
-                          ignoreFailures=True)
+        create_venv = os.path.join(self.tpswd, 'create_venv.py')
+        if os.path.exists(create_venv):
+            cmd_args = ["python", create_venv, self.tpsenv]
+        else:
+            cmd_args = ["sh", os.path.join(self.tpswd, "INSTALL.sh"),
+                        self.tpsenv]
+        self.run_process(cmd_args, self.tpswd, ignoreFailures=True)
         print "TPS setup complete"
 
     def update_config(self):
