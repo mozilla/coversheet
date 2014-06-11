@@ -1,3 +1,9 @@
-*.DS_STORE
-*.swp
-*.egg-info
+.DS_Store
+*.pyc
+*.bak
+jenkins-env/
+jenkins.out
+*.log
+*.war
+log/
+virtualenv-*
