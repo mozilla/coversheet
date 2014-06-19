@@ -1,5 +1,5 @@
 diff --git a/jenkins-master/config.xml b/jenkins-master/config.xml
-index 9a3f490..2076a59 100644
+index 66405c8..fbb7d90 100644
 --- a/jenkins-master/config.xml
 +++ b/jenkins-master/config.xml
 @@ -17,16 +17,100 @@
@@ -109,7 +109,7 @@ index 9a3f490..2076a59 100644
      </slave>
    </slaves>
    <quietPeriod>5</quietPeriod>
-@@ -54,7 +138,7 @@
+@@ -164,7 +248,7 @@
            </default>
            <int>1</int>
            <string>$NOTIFICATION_ADDRESS</string>
@@ -130,3 +130,55 @@ index b6d90da..83592c7 100644
 +  <jenkinsUrl>http://tps-ci-production.qa.scl3.mozilla.com:8080/</jenkinsUrl>
  </jenkins.model.JenkinsLocationConfiguration>
 \ No newline at end of file
+diff --git a/jenkins-master/jobs/mozilla-aurora_fx-account/config.xml b/jenkins-master/jobs/mozilla-aurora_fx-account/config.xml
+index 986969a..4ee7115 100644
+--- a/jenkins-master/jobs/mozilla-aurora_fx-account/config.xml
++++ b/jenkins-master/jobs/mozilla-aurora_fx-account/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute TPS tests for Aurora builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/mozilla-central_fx-account/config.xml b/jenkins-master/jobs/mozilla-central_fx-account/config.xml
+index e9fc65b..f11599d 100644
+--- a/jenkins-master/jobs/mozilla-central_fx-account/config.xml
++++ b/jenkins-master/jobs/mozilla-central_fx-account/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute TPS tests for Nightly builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-beta_fx-account/config.xml b/jenkins-master/jobs/release-mozilla-beta_fx-account/config.xml
+index 62c8215..105525a 100644
+--- a/jenkins-master/jobs/release-mozilla-beta_fx-account/config.xml
++++ b/jenkins-master/jobs/release-mozilla-beta_fx-account/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute TPS tests for Beta builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>
+diff --git a/jenkins-master/jobs/release-mozilla-release_fx-account/config.xml b/jenkins-master/jobs/release-mozilla-release_fx-account/config.xml
+index 1ce1d47..18a746d 100644
+--- a/jenkins-master/jobs/release-mozilla-release_fx-account/config.xml
++++ b/jenkins-master/jobs/release-mozilla-release_fx-account/config.xml
+@@ -4,7 +4,7 @@
+   <description>Execute TPS tests for Release builds.</description>
+   <logRotator class="hudson.tasks.LogRotator">
+     <daysToKeep>-1</daysToKeep>
+-    <numToKeep>10</numToKeep>
++    <numToKeep>200</numToKeep>
+     <artifactDaysToKeep>-1</artifactDaysToKeep>
+     <artifactNumToKeep>-1</artifactNumToKeep>
+   </logRotator>

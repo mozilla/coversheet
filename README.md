@@ -22,6 +22,10 @@ can tell when Jenkins is running by looking out for "Jenkins is fully up and
 running" in the console output. You will also be able to view the web dashboard
 by pointing your browser at http://localhost:8080/
 
+If this is the first time you've started Jenkins, or your workspaces have
+recently been deleted, you will need to run an admin job to finish the setup.
+Open http://localhost:8080/view/+admin/ and build the 'scripts' job.
+
 ## Jenkins URL
 If you intend to connect to this Jenkins instance from another machine (for
 example connecting additional nodes) you will need to update the `Jenkins URL`
