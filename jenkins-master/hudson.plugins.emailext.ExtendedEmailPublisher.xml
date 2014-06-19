@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.38.1">
+  <adminAddress>address not configured yet &lt;nobody&gt;</adminAddress>
+  <useSsl>false</useSsl>
+  <defaultContentType>text/plain</defaultContentType>
+  <defaultSubject>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!</defaultSubject>
+  <defaultPresendScript></defaultPresendScript>
+  <maxAttachmentSize>-1</maxAttachmentSize>
+  <recipientList>$NOTIFICATION_ADDRESS</recipientList>
+  <defaultReplyTo></defaultReplyTo>
+  <excludedCommitters></excludedCommitters>
+  <overrideGlobalSettings>false</overrideGlobalSettings>
+  <listId>Notifications from the TPS-CI system &lt;tps-reports.mozilla.org&gt;</listId>
+  <precedenceBulk>false</precedenceBulk>
+  <debugMode>false</debugMode>
+  <enableSecurity>false</enableSecurity>
+  <enableWatching>false</enableWatching>
+</hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>
