@@ -1,0 +1,117 @@
+{
+    "pulse": {
+        "applabel": "qa-auto@mozilla.com|tps_daily",
+        "branches": [
+            "mozilla-central",
+            "mozilla-aurora",
+            "mozilla-esr24"
+        ],
+        "platforms": [
+            "linux64",
+            "macosx",
+            "macosx64",
+            "win32"
+        ],
+        "products": [
+            "firefox"
+        ],
+        "tags": [
+            "nightly"
+        ]
+    },
+    "jenkins": {
+        "url": "http://localhost:8080",
+        "username": "mozilla",
+        "password": "test1234"
+    },
+    "testrun": {
+        "jenkins_parameter_map": {
+            "default": {
+                "URL_BUILD": {
+                    "key": "buildurl"
+                },
+                "URL_TESTS": {
+                    "key": "testsurl"
+                }
+            }
+        },
+        "by_branch": {
+            "project": {
+               "locales": [
+                    "en-US"
+                ],
+                "testruns": [
+                    "fx-account"
+                ],
+                "platforms": {
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.9 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "mozilla-central": {
+               "locales": [
+                    "en-US"
+                ],
+                "testruns": [
+                    "fx-account"
+                ],
+                "platforms": {
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.9 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "mozilla-aurora": {
+               "locales": [
+                    "en-US"
+                ],
+                "testruns": [
+                    "fx-account"
+                ],
+                "platforms": {
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.9 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            },
+            "mozilla-esr24": {
+               "locales": [
+                    "en-US"
+                ],
+                "testruns": [
+                    "fx-account"
+                ],
+                "platforms": {
+                    "linux64": [
+                        "linux && ubuntu && 14.04 && 64bit"
+                    ],
+                    "mac": [
+                        "mac && 10.9 && 64bit"
+                    ],
+                    "win32": [
+                        "windows && 8.1 && 64bit"
+                    ]
+                }
+            }
+        }
+    }
+}
