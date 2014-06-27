@@ -48,10 +48,8 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
-                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
-                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -67,10 +65,8 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
-                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
-                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -86,10 +82,8 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
-                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
-                        "windows && 8.1 && 64bit"
                     ]
                 }
             },
@@ -105,10 +99,8 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
-                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
-                        "windows && 8.1 && 64bit"
                     ]
                 }
             }

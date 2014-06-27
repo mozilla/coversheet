@@ -38,6 +38,9 @@ one of the example nodes (Windows XP and Ubuntu) as a template. Once done the
 nodes have to be connected to the master. Therefore Java has to be installed on
 the node first.
 
+# Documentation has to be updated regarding requirements for fxa-python-client
+# package, issue #37 https://github.com/mozilla/coversheet/issues/37
+
 ### Windows:
 Go to [www.java.com/download/](http://www.java.com/download/) and install the
 latest version of Java JRE. Also make sure that the UAC is completely disabled,
