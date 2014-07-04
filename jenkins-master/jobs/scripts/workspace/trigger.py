@@ -7,12 +7,16 @@ import optparse
 import os
 import subprocess
 import sys
+import urllib
 import urllib2
 import zipfile
 
 CHUNK_SIZE = 8192
 
 def download(url, destination=None):
+    # Ensure we have a properly encoded URL
+    url = urllib.quote(url, safe='%/:=&?~#+!$,;\'@()*[]')
+
     if destination:
         if not os.path.exists(destination):
             os.makedirs(destination)
