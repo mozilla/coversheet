@@ -37,9 +37,8 @@ To add Jenkins slaves to your master you have to create new nodes. You can use
 one of the example nodes (Windows XP and Ubuntu) as a template. Once done the
 nodes have to be connected to the master. Therefore Java has to be installed on
 the node first.
-
-# Documentation has to be updated regarding requirements for fxa-python-client
-# package, issue #37 https://github.com/mozilla/coversheet/issues/37
+Python needs to be installed and be available in PATH.
+Please make sure you have satisfied the requirements for [fxa-python-client](https://github.com/mozilla/fxa-python-client/blob/master/README.md) package
 
 ### Windows:
 Go to [www.java.com/download/](http://www.java.com/download/) and install the
