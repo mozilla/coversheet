@@ -7,6 +7,7 @@ import optparse
 import os
 import subprocess
 import sys
+from time import sleep
 import urllib
 import urllib2
 import zipfile
@@ -65,6 +66,13 @@ class RunTPS():
         # Create and verify the Firefox account
         subprocess.check_call(['fxa-client', '-e', self.username,
                                '-p', self.password, 'create'])
+
+        # Ensure to wait for an email received via restmail.
+        # https://github.com/mozilla/coversheet/issues/38
+        # This can be removed once the following fxa-python-client issue is fixed:
+        # https://github.com/mozilla/fxa-python-client/issues/15
+        sleep(2)
+
         subprocess.check_call(['fxa-client', '-e', self.username,
                                '-p', self.password, 'verify'])
 
