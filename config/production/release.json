@@ -47,6 +47,7 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                     ]
@@ -64,12 +65,13 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                     ]
                 }
             },
-            "release-mozilla-esr24": {
+            "release-mozilla-esr31": {
                "locales": [
                     "en-US"
                 ],
@@ -81,6 +83,7 @@
                         "linux && ubuntu && 14.04 && 64bit"
                     ],
                     "mac": [
+                        "mac && 10.9 && 64bit"
                     ],
                     "win32": [
                     ]
