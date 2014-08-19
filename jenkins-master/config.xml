@@ -163,7 +163,7 @@
             <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../views/listView/jobNames/comparator"/>
           </default>
           <int>1</int>
-          <string>$NOTIFICATION_ADDRESS</string>
+          <string>NOTIFICATION_ADDRESS</string>
           <string></string>
         </tree-map>
       </envVars>
