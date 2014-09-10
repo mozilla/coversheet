@@ -84,8 +84,8 @@ ${BUILD_URL}</body>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
             <contentType>project</contentType>
           </email>
@@ -99,8 +99,8 @@ ${BUILD_URL}</body>
               <hudson.plugins.emailext.plugins.recipients.DevelopersRecipientProvider/>
             </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
             <contentType>project</contentType>
           </email>
@@ -114,8 +114,8 @@ ${BUILD_URL}</body>
               <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
             </recipientProviders>
             <attachmentsPattern></attachmentsPattern>
-            <attachBuildLog>false</attachBuildLog>
-            <compressBuildLog>false</compressBuildLog>
+            <attachBuildLog>true</attachBuildLog>
+            <compressBuildLog>true</compressBuildLog>
             <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
             <contentType>project</contentType>
           </email>
@@ -149,9 +149,9 @@ ${BUILD_LOG_REGEX, regex=&quot;^(TEST-UNEXPECTED-FAIL.*)$&quot;, maxMatches=100,
 
 View the build in Jenkins:
 ${BUILD_URL}</defaultContent>
-      <attachmentsPattern>tps.log</attachmentsPattern>
+      <attachmentsPattern></attachmentsPattern>
       <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
-      <attachBuildLog>true</attachBuildLog>
+      <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
       <replyTo></replyTo>
       <saveOutput>false</saveOutput>
