@@ -145,7 +145,7 @@ ${BUILD_URL}</body>
       <defaultContent>TPS ${PROJECT_NAME} testrun for Firefox${BUILD_LOG_REGEX, regex=&quot;^(?:CROSSWEAVE INFO: Firefox version:)( .*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%application%&quot;} on ${NODE_NAME} (${BUILD_LOG_REGEX, regex=&quot;^(?:CROSSWEAVE INFO: Firefox buildid: )(.*)$&quot;, maxMatches=1, showTruncatedLines=false, substText=&quot;$1&quot;, addNewline=false, defaultValue=&quot;%buildid%&quot;}) completed with failures.
 
 Test failures:
-${BUILD_LOG_REGEX, regex=&quot;^(TEST-UNEXPECTED-FAIL.*)$&quot;, maxMatches=100, showTruncatedLines=false, substText=&quot;$1&quot;}
+${BUILD_LOG_MULTILINE_REGEX, regex=&quot;(?:\n\n)(TEST-UNEXPECTED-FAIL.*)(?:\n\n)&quot;, maxMatches=100, showTruncatedLines=false, substText=&quot;$1&quot;}
 
 View the build in Jenkins:
 ${BUILD_URL}</defaultContent>
