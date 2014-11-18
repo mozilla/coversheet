@@ -1,6 +1,6 @@
 {
     "pulse": {
-        "applabel": "qa-auto@mozilla.com|tps_daily",
+        "applabel": "tps_daily",
         "branches": [
             "mozilla-central",
             "mozilla-aurora",

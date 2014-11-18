@@ -1,6 +1,6 @@
 {
     "pulse": {
-        "applabel": "qa-auto@mozilla.com|tps_release",
+        "applabel": "tps_release",
         "branches": [
             "release-mozilla-beta",
             "release-mozilla-release",

@@ -3,7 +3,7 @@
 # Link to the folder which contains the zip archives of virtualenv
 URL_VIRTUALENV=https://codeload.github.com/pypa/virtualenv/zip/
 
-VERSION_PULSEBUILDMONITOR=0.81
+VERSION_PULSEBUILDMONITOR=0.90
 VERSION_PYTHON_JENKINS=0.2.1
 VERSION_VIRTUALENV=1.9.1
 
@@ -34,10 +34,20 @@ echo "Installing required dependencies"
 pip install --upgrade python-jenkins==${VERSION_PYTHON_JENKINS}
 pip install --upgrade pulsebuildmonitor==${VERSION_PULSEBUILDMONITOR}
 
-echo "Deactivating the environment"
+echo -e "Deactivating the environment\n"
 deactivate
 
-echo "Successfully created the Jenkins environment: '${DIR_ENV}'"
-echo "Run 'source ${DIR_ENV}/bin/activate' to activate the environment"
-
 rm -r ${DIR_TMP}
+
+echo -e "##################################################################\n"
+echo -e "Successfully created the Jenkins environment: '${DIR_ENV}'"
+echo -e "Run 'source ${DIR_ENV}/bin/activate' to activate the environment\n"
+
+echo -e "To be able to connect to Mozilla Pulse make sure to create an"
+echo -e "account at https://pulse.mozilla.org, and update .pulse_config.ini"
+echo -e "with your authentication information\n"
+echo -e "##################################################################\n"
+
+if [ ! -f ".pulse_config.ini" ]; then
+  cp config/pulse_config.ini ./.pulse_config.ini
+fi
